@@ -1,0 +1,43 @@
+program = s? exps s?
+<exps> = do | exp
+do = exp (<p?> (n+ | <';'>) <p?> exp)+
+<exp> = (atom | assignment | operation) (<p?> comment)? | comment
+<atom> = symbol | boolean | pair | keyword | number | call | list | group | map | vector | set | regex | string
+comment = ';;' #'.'*
+
+boolean = 'true' | 'false' | 'nil'
+number = digits ('.' digits)?
+symbol = '::'? id
+keyword = ':' id
+string = quoted
+regex = '#' quoted 
+<quoted> = '"' #'[^\\"]|\\.'* '"'
+
+assignment = exp <equals> exp
+equals = <s> '=' <s> 
+operation = (operation | !pair atom) !(comment | equals | '.') (operator | space) !pair atom 
+operator = <s> special <s> 
+space = <p> !special
+
+<id> = '/' | qualified ('/' qualified)?
+<qualified> = non-numeric (':'? (non-numeric | digits))*
+<digits> = #'[0-9]+'
+<non-numeric> = #'[a-zA-Z]+' | special
+<special> = #'[.!$%&*_+=|<>?-]'+
+
+group = lp s? exp? s? rp 
+list = lp s? (comma | args comma) s? rp 
+vector = <'['> args <']'>
+map = <'{'> args <'}'>
+pair = exp <':'> <s> exp
+set = <'#{'> args <'}'>
+call = !pair atom lp args rp 
+<args> = s? | s? exps (comma exps)* s?
+<comma> = s? <','> s?
+<lp> = <'('> 
+<rp> = <')'>
+
+<s> = (<p?> n <p?> | <p>)+
+<p> = #'\p{Blank}+'
+n = <'\n'>
+

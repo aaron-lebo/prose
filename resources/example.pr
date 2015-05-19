@@ -1,0 +1,6 @@
+hello = defn(name, city: "Dallas",
+  let(message: " " join(["Hello,", name, "from", city]),
+    message println
+    message
+  )
+)
