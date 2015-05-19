@@ -1,13 +1,13 @@
 # prose 
 
-*No subject is terrible if the story is true, if the _prose_ is clean and honest, and if it affirms courage and grace under pressure.* - Ernest Hemingway as played by Corey Stoll in _Midnight in Paris__
+*No subject is terrible if the story is true, if the _prose_ is clean and honest, and if it affirms courage and grace under pressure.* - Ernest Hemingway as played by Corey Stoll in *Midnight in Paris*
 
 ## tldr
 
 ```
 hello = defn(name, city: "Dallas",
   name count + 1 println ;; because we can
-  let(message: " " join(["Hello,", name, "from", city]),
+  let(message: " " string/join(["Hello,", name, "from", city]),
     message println
     message
   )
