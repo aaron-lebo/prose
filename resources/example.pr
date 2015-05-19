@@ -1,6 +1,11 @@
 hello = defn(name, city: "Dallas",
-  let(message: " " join(["Hello,", name, "from", city]),
+  name count + 1 println ;; because we can
+  let(message: " " string/join(["Hello,", name, "from", city]),
     message println
     message
   )
 )
+
+hello("Howard Hughes", "Houston")
+"Eleanor Roosevelt" hello("New York City")
+"The Linux Users Group @ UT Dallas" hello
