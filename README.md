@@ -5,17 +5,29 @@
 ## tldr
 
 ```
-hello = defn(name, city: "Dallas",
-  name count + 1 println ;; because we can
-  let(message: " " string/join(["Hello,", name, "from", city]),
-    message println
-    message
+buffalo = defn(end,
+  let(strings: 1 * 8 repeat("buffalo"),
+    idxs: [0, 2, 6],
+    f: fn(idx, itm,
+      if(idx2 fn(idx2 == idx) some(idxs),
+        itm string/capitalize,
+        itm
+      )
+    ),
+    res: f map-indexed(strings),
+    " " string/join(res) str(end case(
+      period: ".",
+      qmark: "?",
+      "!"
+    ))
   )
 )
 
-hello("Howard Hughes", "Houston")
-"Eleanor Roosevelt" hello("New York City")
-"The Linux Users Group @ UT Dallas" hello
+:period buffalo
+buffalo(:qmark)
+
+excited-buffalo = buffalo partial(:exmark)
+excited-buffalo()
 ```
 
 ## license

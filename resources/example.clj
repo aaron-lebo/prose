@@ -1,10 +1,20 @@
-(defn hello [name & :keys [city] :or {city "Dallas"}]  
-  (println (+ (count name) 1))  ;; because we can  
-  (let [message (string/join " " ["Hello," name "from" city])] 
-    (println message)  
-    message))
+(defn buffalo [end]  
+  (let [strings (repeat (* 1 8) "buffalo")  
+      idxs [0 2 6]  
+      f (fn idx [idx itm]  
+        (if (some (fn [idx2] (= idx2 idx)) idxs)  
+          (string/capitalize itm)  
+          itm)) 
+       
+      res (map-indexed f strings)] 
+    (str (string/join " " res) (case end  
+        period "."  
+        qmark "?"  
+        "!"))))
 
 
-(hello "Howard Hughes" "Houston")
-(hello "Eleanor Roosevelt" "New York City")
-(hello "The Linux Users Group @ UT Dallas")
+(buffalo :period)
+(buffalo :qmark)
+
+(def excited-buffalo (partial buffalo :exmark))
+(excited-buffalo)
