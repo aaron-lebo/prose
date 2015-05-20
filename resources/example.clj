@@ -4,13 +4,16 @@
       f (fn [idx itm]  
         (if (some (fn [idx2] (= idx2 idx)) idxs)  
           (string/capitalize itm)  
-          itm)) 
+          itm))  
+         
        
-      res (map-indexed f strings)] 
+      res (map-indexed f strings)]  
     (str (string/join " " res) (case end  
         period "."  
         qmark "?"  
-        "!"))))
+        "!"))))  
+     
+  
 
 
 (buffalo :period)
