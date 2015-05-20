@@ -67,7 +67,7 @@
         params (cons :vector (concat args keys))
         [body-h & body-t :as body] (nth tail body-idx)
         body (if (= :do body-h) body-t [body])]  
-    (str out "(" (join (concat (subvec* 0 larg) [params] (subvec tail lkarg body-idx) body (subvec tail (inc body-idx)))) ")")))
+    (str out "(" (join (concat (subvec* 0 (if (= 1 larg) larg (dec larg))) [params] (subvec tail lkarg body-idx) body (subvec tail (inc body-idx)))) ")")))
 
 (defn let-node [out [head & _ :as tail]] 
   (let [tail (vec tail)

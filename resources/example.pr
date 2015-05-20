@@ -1,4 +1,4 @@
-buffalo = defn(end,
+buffalo = defn(start, end,
   let(strings: 1 * 8 repeat("buffalo"),
     idxs: [0, 2, 6],
     f: fn(idx, itm,

@@ -1,7 +1,7 @@
-(defn buffalo [end]  
+(defn buffalo [start end]  
   (let [strings (repeat (* 1 8) "buffalo")  
       idxs [0 2 6]  
-      f (fn idx [idx itm]  
+      f (fn [idx itm]  
         (if (some (fn [idx2] (= idx2 idx)) idxs)  
           (string/capitalize itm)  
           itm)) 
