@@ -30,6 +30,24 @@ excited-buffalo = buffalo partial(:exmark)
 excited-buffalo()
 ```
 
+prose's syntax is based on Io and Ioke. Unlike Io and Ioke, it is not particularly object-oriented. Instead it is base d on and compiles to readable Clojure and ClojureScript. This allows us to hook into the JVM and anything ClojureScript runs on (which is anywhere JavaScript runs), and gives us very powerful features like multimethods, protocols, and the async library. Oh, and we also get macros, without the traditional lisp syntax.
+
+The core idea behind prose is that in Clojure or any other functional language, function application is the most important aspect of the language, it should also be the most important part of the syntax. As such, whitespace denotes function application.
+
+```
+[1, 2, 3] sum + 1 println
+```
+
+This is equivalent to the following Clojure code.
+
+```
+(println (+ 1 (sum [1 2 3])))
+```
+
+Notice how the prose example allows the use of operators and also reads more like natural language.
+
+If you want to know more about the language, [resources/test.pr](https://github.com/aaron-lebo/prose/blob/master/resources/example.pr) has numerous examples and currently considered the canonical test of compiler. The results of compiling that file are found in [resources/example.clj](https://github.com/aaron-lebo/prose/blob/master/resources/example.clj). The parser is written using the incredible [Instaparse](https://github.com/Engelberg/instaparse) library. I cannot overstate how cool it is. It takes [this grammar definition](https://github.com/aaron-lebo/prose/blob/master/resources/grammar.bnf) and generates an AST. It is easily the best lexing/parsing tool I've ever used. The compiler attempts to keep expressions on the same line when going from input to output file. It isn't perfect, but Clojure has terrible error messages anyway, so it can't hurt too much. I'm joking. Or am I? 
+
 ## why
 
 Lisp dialects are often talked about as though they were religious experiences that everyone should experience at one point in their lifetime. You can even find John McCarthy's creation of the original LISP in 1956 spoken of in terms of discovery, as though lisp was an immutable law or truth like gravity, just waiting for human beings to become enlightened enough to realize it was there.
@@ -95,11 +113,9 @@ This is prose, and it naturally compiles down to Clojure and ClojureScript. Why 
 
 To sum it all up: prose is a simple language, inspired by Io and Ioke, that compiles to Clojure and ClojureScript.
 
-If you want to know more about the language, [resources/test.pr](https://github.com/aaron-lebo/prose/blob/master/resources/example.pr) has numerous examples and currently considered the canonical test of compiler. The results of compiling that file are found in [resources/example.clj](https://github.com/aaron-lebo/prose/blob/master/resources/example.clj). The parser is written using the incredible [Instaparse](https://github.com/Engelberg/instaparse) library. I cannot overstate how cool it is. It takes [this grammar definition](https://github.com/aaron-lebo/prose/blob/master/resources/grammar.bnf) and generates an AST. It is easily the best lexing/parsing tool I've ever used. The compiler attempts to keep expressions on the same line when going from input to output file. It isn't perfect, but Clojure has terrible error messages anyway, so it can't hurt too much. I'm joking. Or am I? 
-
 ## the future
 
-This is partially a pet project, partially an experiment in syntax, and partially a test to gauge whether other people are interested in working with me on making this truly usable. I have no formal training in compilers and as such prose is the result of years of fumbling around. The grammar definition and compiler could probably be much cleaner and simpler. If there was enough interest, it might make more sense to stop using Clojure and ClojureScript as compilation targets and instead to hook into the same code generation tools they use. They are seen as compilation targets instead of hard standards first and foremost, but interoperability is very important. Their communities are too smart, it does not make sense to diverge. 
+This is partially a pet project, partially an experiment in syntax, and partially a test to gauge whether other people are interested in working with me on making this truly usable. I have no formal training in compilers and as such prose is the result of years of fumbling around. The grammar definition and compiler could probably be much cleaner and simpler. If there was enough interest, it might make more sense to stop using Clojure and ClojureScript as compilation targets and instead to hook into the same code generation tools they use. They are seen as compilation targets instead of hard standards first and foremost, but interoperability is very important. Their communities are too smart, it does not make sense to diverge. Additionally, the future seems to be with gradual typiong. It would be intersting to make a project like Typed Clojure a core part of the syntax.
 
 Anyway, I'd love to make this more than just an experiment. New Github issues and pull requests are very appreciated.
 
