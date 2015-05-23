@@ -30,7 +30,7 @@ excited-buffalo = buffalo partial(:exmark)
 excited-buffalo()
 ```
 
-prose's syntax is based on Io and Ioke. Unlike Io and Ioke, it is not particularly object-oriented. Instead it is base d on and compiles to readable Clojure and ClojureScript. This allows us to hook into the JVM and anything ClojureScript runs on (which is anywhere JavaScript runs), and gives us very powerful features like multimethods, protocols, and the async library. Oh, and we also get macros, without the traditional lisp syntax.
+prose's syntax is based on Io and Ioke. Unlike Io and Ioke, it is not particularly object-oriented. Instead it is based on and compiles to readable Clojure and ClojureScript. This allows us to hook into the JVM and anything ClojureScript runs on (which is anywhere JavaScript runs), and gives us very powerful features like multimethods, protocols, and the async library. Oh, and we also get macros, without the traditional lisp syntax.
 
 The core idea behind prose is that in Clojure or any other functional language, function application is the most important aspect of the language, it should also be the most important part of the syntax. As such, whitespace denotes function application.
 
