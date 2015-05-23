@@ -54,7 +54,7 @@ Aside from the fact that lisps do not have true operators, in lisps this reads i
 
 The former example reads much more like UNIX piping: one value gets passed to the next. I personally believe that this is intuitively easier for most people to follow, at least if you read a language that reads from left to right, and perhaps even if you do not. Outside of just that, you constantly hear people complain about lisp having poor syntax for math; we are trained from youth to use operators. These are hard habits to break.
 
-Enough bashing on lisp. The question is whether we can take three great advantages of lisp syntax: uniformity, homoiconicity (for easy macros), and simplicity, and incorporate true operators while eliminating too much nesting? You can, and prose is an attempt at this.
+Enough bashing on lisp. The question is can we can take three great advantages of lisp syntax: uniformity, homoiconicity (for easy macros), and simplicity, and incorporate true operators while eliminating too much nesting? We can, and prose is an attempt at this.
 
 ## what
 
