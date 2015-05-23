@@ -99,7 +99,7 @@ If you want to know more about the language, [resources/test.pr](https://github.
 
 ## the future
 
-This is partially a pet project, partially an experiment in syntax, and partially a test to gauge whether other people are interested in working with me on making this truly usable. I have no formal training in compilers and as such prose is the result of years of fumbling around. The grammar definition and compiler could probably be much cleaner and simpler. If there was enough interest, it might make more sense to stop using Clojure and ClojureScript as compilation targets and instead to hook into the same code generation tools they use. They are seen as compilation targets instead of hard standards first and foremost, but interoperability is very important. There communities are too smart, it does not make sense to diverge. 
+This is partially a pet project, partially an experiment in syntax, and partially a test to gauge whether other people are interested in working with me on making this truly usable. I have no formal training in compilers and as such prose is the result of years of fumbling around. The grammar definition and compiler could probably be much cleaner and simpler. If there was enough interest, it might make more sense to stop using Clojure and ClojureScript as compilation targets and instead to hook into the same code generation tools they use. They are seen as compilation targets instead of hard standards first and foremost, but interoperability is very important. Their communities are too smart, it does not make sense to diverge. 
 
 Anyway, I'd love to make this more than just an experiment. New Github issues and pull requests are very appreciated.
 
