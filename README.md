@@ -104,7 +104,6 @@ This works great, but why should it be an additional operator that you have to p
 
 ```
 [1, 2, 3] sum + 1 println
-
 ```
 
 If you are having trouble following, the vector of numbers get passed as the first argument to sum which is then called, the result of that is passed in as the first argument to + which is called, and the final result get passed to println which is then called.
