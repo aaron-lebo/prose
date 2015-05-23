@@ -58,7 +58,7 @@ Enough bashing on lisp. The question is can we can take three great advantages o
 
 ## what
 
-prose is heavily inspired by Io and Ioke. Io is Steve Dekorte's minimalist and radical experiment in language design and Ioke is Ola Bini's later work, inspired by Io, which runs on the JVM. Both of these languages are incredibly elegant; you might call them art house programming languages. They are very aesthetically pleasing, and that in and of itself is a noble goal. David Heinemeier Hanson, the creator of Rails, used to make a big deal about "beautiful code". This might seem silly and even pretentious, but I firmly believe that coding is both a creative and artistic endeavor. In an industry that is so often thought of such mechanical and cold terms, sometimes we forget about the artistry and magic of putting together the right algorithm and then writing that code in an elegant manner. You can do this in any language, but some languages emphasize it more than others.
+prose is heavily inspired by Io and Ioke. Io is Steve Dekorte's minimalist and radical experiment in language design and Ioke is Ola Bini's later work, inspired by Io, which runs on the JVM. Both of these languages are incredibly elegant; you might call them art house programming languages. They are very aesthetically pleasing, and that in and of itself is a noble goal. David Heinemeier Hanson, the creator of Rails, used to make a big deal about "beautiful code". This might seem silly and even pretentious, but I firmly believe that coding is both a creative and artistic endeavor. In an industry that is so often thought of in such mechanical and cold terms, sometimes we forget about the artistry and magic of putting together the right algorithm and then writing that code in an elegant manner. You can do this in any language, but some languages emphasize it more than others.
 
 But, hey, the underlying mechanics of it all do matter. Languages are more than syntax. Io and Ioke are incredibly, perhaps overly dynamic languages. They are both difficult to efficiently compile. Being radical, they also have some features which deviate from more mainstream languages. This makes adoption difficult. 
 
@@ -76,7 +76,7 @@ res := arr sum + 1
 res println
 ```
 
-Now, Io and Ioke are both prototype-based languages. Within the context of mainstream lisp's this doesn't make a lot of sense. Some lisps, like Common Lisp even are object-oriented or make object orientation a core aspect of the language. Fundamentally, though, they are based around functions. Functions can also be expressed in a piping manner. Clojure even has a macro which does this, the threading operator.
+Now, Io and Ioke are both prototype-based languages. Within the context of mainstream lisps this doesn't make a lot of sense. Some lisps, like Common Lisp even are object-oriented or make object orientation a core aspect of the language. Fundamentally, though, they are based around functions. Functions can also be expressed in a piping manner. Clojure even has a macro which does this, the threading operator.
 
 ```
 (-> [1, 2, 3] sum (+ 1) println)
