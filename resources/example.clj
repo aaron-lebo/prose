@@ -22,5 +22,7 @@
 (def excited-buffalo (partial buffalo :exmark))
 (excited-buffalo)
 
+(= 1 2)
+
 (def sum (partial reduce +))
 (println (+ (sum [1 2 3]) 1))

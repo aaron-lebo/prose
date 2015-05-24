@@ -22,7 +22,7 @@ buffalo(:qmark)
 excited-buffalo = buffalo partial(:exmark)
 excited-buffalo()
 
+1 == 2
+
 sum = reduce partial(+)
 [1, 2, 3] sum + 1 println
-
-

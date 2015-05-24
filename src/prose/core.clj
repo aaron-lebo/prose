@@ -3,41 +3,26 @@
             [clojure.pprint :as pprint]
             [instaparse.core :as insta]))
 
-(def parser (insta/parser (clojure.java.io/resource "grammar.bnf")))
-
-(defn parse [path]
-  (insta/parse parser (slurp (clojure.java.io/file path))))
-
-(defn pretty [path]
-  (pprint/pprint (parse path)))
-
 (declare gen)
-
-(defn compile-file [path path-out]
-  (let [res (parse path)]
-    (if (vector? res)
-      (spit (clojure.java.io/file path-out) (gen "" res))
-      (println res))))
-
-(def newlines (atom []))
 (def indent (atom 0))
+(def newlines (atom []))
 
-(defn str* [arg]
-  (apply str arg))
+(defn str+ [out f sequence]
+  (str out (string/join (map f sequence))))
 
 (defn ->call [sym & args]
   (concat [:call [:symbol sym]] (apply concat args)))
 
 (defn join [out args & [left right]]
-  (let [res (string/join " " (map #(gen "" %) args))
+  (let [res (string/join " " (map (partial gen "") args))
         whitespace (re-find #"\s+$" res)] 
-    (str out (or left "") (string/trimr res) (or right "") whitespace)))
+    (str out left (string/trimr res) right whitespace)))
 
-(defn keep-indexed* [tail pred key] 
-  (keep-indexed (fn [idx item] (if (pred key (first item)) idx)) tail))
+(defn keep-indexed* [tail ? key] 
+  (keep-indexed (fn [idx [f-itm & _]] (if (? key f-itm) idx)) tail))
 
-(defn program [out [_ & [head & _ :as tail]]]
-  (str* (concat [out] (map #(gen "" %) (if (= :do (first head)) (rest head) tail)))))
+(defn program [out [_ & [[ff-tail & rf-tail] & _ :as tail]]]
+  (str+ out (partial gen "") (if (= :do ff-tail) rf-tail tail)))
 
 (defn do-node [out [_ & tail]]
   (gen out (->call "do" tail)))
@@ -93,18 +78,21 @@
     [:symbol "let"] (let-node out tail)
     (join out tail "(" ")")))
 
+(defn call? [node]
+  (= :call (first node)))
+
 (defn operation [out [_ left op right]] 
   (gen out 
-       (cond 
-         (= [:space] op) (if (= :call (first right)) 
-                           (concat (subvec right 0 2) [left] (subvec right 2))
-                           [:call right left])
-         (= "==" (str* (rest op))) (->call "=" [left right])
-         :else [:call op left right])))
+       (case op 
+         [:space] (if (call? right)
+                    (concat (subvec right 0 2) [left] (subvec right 2))
+                    [:call right left])
+         [:operator "=" "="] (->call "=" [left right])
+         [:call op left right])))
 
 (defn assignment [out [_ & [left right]]]
   (gen out  
-       (if (= (first right) :call)
+       (if (call? right)
          (concat [:call (second right) left] (subvec right 2))  
          (->call "def" [left right]))))
 
@@ -136,10 +124,10 @@
   (gen out exp))
 
 (defn comment-node [out [_ & tail]] 
-  (str out " " (str* tail)))
+  (str out " " (string/trimr (string/join tail))))
 
 (defn default [out [_ & tail]] 
-  (str out (str* tail)))
+  (str out (string/join tail)))
 
 (defn shift [node-fn]
   (fn [& args]
@@ -165,8 +153,20 @@
                   :group group 
                   :comment comment-node
                   default)
-        res (str* (concat [out] (map #(str % (string/join (repeat (* @indent 2) \space))) @newlines)))]
+        res (str+ out #(str % (string/join (repeat (* @indent 2) \space))) @newlines)]
     (reset! newlines [])
     (node-fn res node)))
 
+(def parser (insta/parser (clojure.java.io/resource "grammar.bnf")))
 
+(defn parse [path]
+  (insta/parse parser (slurp (clojure.java.io/file path))))
+
+(defn pretty [path]
+  (pprint/pprint (parse path)))
+
+(defn compile-file [path path-out]
+  (let [res (parse path)]
+    (if (vector? res)
+      (spit (clojure.java.io/file path-out) (gen "" res))
+      (println res))))
