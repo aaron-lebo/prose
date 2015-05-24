@@ -42,7 +42,7 @@ sum = reduce partial(+)
 This is equivalent to the following Clojure code.
 
 ```
-(defn sum (partial reduce +)) 
+(def sum (partial reduce +)) 
 (println (+ 1 (sum [1 2 3])))
 ```
 
