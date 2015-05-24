@@ -28,10 +28,10 @@
 (defn ->call [sym & args]
   (concat [:call [:symbol sym]] (apply concat args)))
 
-(defn join [args & [left right]]
+(defn join [out args & [left right]]
   (let [res (string/join " " (map #(gen "" %) args))
         whitespace (re-find #"\s+$" res)] 
-    (str (or left "") (string/trimr res) (or right "") whitespace)))
+    (str out (or left "") (string/trimr res) (or right "") whitespace)))
 
 (defn keep-indexed* [tail pred key] 
   (keep-indexed (fn [idx item] (if (pred key (first item)) idx)) tail))
@@ -69,13 +69,13 @@
         params (cons :vector (concat args keys))
         [body-h & body-t :as body] (nth tail body-idx)
         body (if (= :do body-h) body-t [body])]  
-    (str out 
-         (join (concat (subvec* 0 (if (= 1 larg) larg (dec larg))) 
-                       [params] 
-                       (subvec tail lkarg body-idx) 
-                       body 
-                       (subvec tail (inc body-idx)))
-               "(" ")"))))
+    (join out 
+          (concat (subvec* 0 (if (= 1 larg) larg (dec larg))) 
+                  [params] 
+                  (subvec tail lkarg body-idx) 
+                  body 
+                  (subvec tail (inc body-idx)))
+          "(" ")")))
 
 (defn let-node [out [head & _ :as tail]] 
   (let [tail (vec tail)
@@ -83,7 +83,7 @@
         kargs (cons :vector (subvec tail 1 idx))
         [body-h & body-t :as body] (nth tail idx)
         body (if (= :do body-h) body-t [body])]  
-    (str out (join (concat [head kargs] body (subvec tail (inc idx))) "(" ")"))))
+    (join out (concat [head kargs] body (subvec tail (inc idx))) "(" ")")))
 
 (defn call [out [_ & [head _ :as tail]]] 
   (case head
@@ -91,7 +91,7 @@
     [:symbol "defn"] (fn-node 2 out tail)
     [:symbol "defmacro"] (fn-node 2 out tail)
     [:symbol "let"] (let-node out tail)
-    (str out (join tail "(" ")"))))
+    (join out tail "(" ")")))
 
 (defn operation [out [_ left op right]] 
   (gen out 
@@ -112,26 +112,25 @@
   (gen out (->call "list" tail)))
 
 (defn map-node [out [_ & tail]] 
-  (str out  
-       (join 
+  (join out 
         (map 
          #(if (= (get-in % [1 0]) :symbol) 
             (update-in % [1] (fn [node] (vector :keyword ":" (last node)))) 
             %) 
          tail)
-        "{" "}")))
+        "{" "}"))
 
 (defn map-node* [out [_ & tail]] 
-  (str out (join tail "{" "}")))
+  (join out tail "{" "}"))
 
 (defn pair [out [_ & tail]] 
-  (str out (join tail)))
+  (join out tail))
 
 (defn set-node [out [_ & tail]] 
-  (str out (join tail "#{" "}")))
+  (join out tail "#{" "}"))
 
 (defn vector-node [out [_ & tail]] 
-  (str out (join tail "[" "]")))
+  (join out tail "[" "]"))
 
 (defn group [out [_ exp]] 
   (gen out exp))
