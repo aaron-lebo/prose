@@ -87,9 +87,9 @@
 
 (defn call [out [_ & [head _ :as tail]]] 
   (case head
-    [:symbol "fn"] ((partial fn-node 1) out tail)
-    [:symbol "defn"] ((partial fn-node 2) out tail)
-    [:symbol "defmacro"] ((partial fn-node 2) out tail)
+    [:symbol "fn"] (fn-node 1 out tail)
+    [:symbol "defn"] (fn-node 2 out tail)
+    [:symbol "defmacro"] (fn-node 2 out tail)
     [:symbol "let"] (let-node out tail)
     (str out (join tail "(" ")"))))
 
