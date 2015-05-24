@@ -55,11 +55,11 @@ If you want to know more about the language, [resources/test.pr](https://github.
 3. ```cd prose```
 4. Inside the project directory you can now use ```lein prose``` (once I properly register it as a lein plugin it will be usable anywhere).
 5. Calling the command with a single argument will output the Instaparse AST (the AST currently keeps extraeneous whitespace information that is only necessary for the compiler).
-6. 
+
 ```lein prose resources/example.pr```
 
 6. Calling the command with a second argument will generate a Clojure file at that location.
-7. 
+ 
 ```lein prose resources/example.pr resources/example.clj```
 
 ## why
