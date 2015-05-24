@@ -1,6 +1,3 @@
-sum = reduce partial(+)
-[1, 2, 3] sum + 1 println
-
 buffalo = defn(start, end,
   let(strings: 1 * 8 repeat("buffalo"),
     idxs: [0, 2, 6],
@@ -24,4 +21,8 @@ buffalo(:qmark)
 
 excited-buffalo = buffalo partial(:exmark)
 excited-buffalo()
+
+sum = reduce partial(+)
+[1, 2, 3] sum + 1 println
+
 

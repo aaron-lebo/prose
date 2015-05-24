@@ -1,6 +1,3 @@
-(def sum (partial reduce +))
-(println (+ (sum [1 2 3]) 1))
-
 (defn buffalo [start end]  
   (let [strings (repeat (* 1 8) "buffalo")  
       idxs [0 2 6]  
@@ -24,3 +21,6 @@
 
 (def excited-buffalo (partial buffalo :exmark))
 (excited-buffalo)
+
+(def sum (partial reduce +))
+(println (+ (sum [1 2 3]) 1))
