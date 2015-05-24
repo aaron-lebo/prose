@@ -35,12 +35,14 @@ prose's syntax is based on [Io](http://iolanguage.org/) and [Ioke](https://ioke.
 The core idea behind prose is that in Clojure or any other functional language, function application is the most important aspect of the language; it should also be the most important part of the syntax. As such, whitespace denotes function application.
 
 ```
+sum = reduce partial(+)
 [1, 2, 3] sum + 1 println
 ```
 
 This is equivalent to the following Clojure code.
 
 ```
+(defn sum (partial reduce +)) 
 (println (+ 1 (sum [1 2 3])))
 ```
 
