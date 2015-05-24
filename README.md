@@ -32,7 +32,7 @@ excited-buffalo()
 
 prose's syntax is based on [Io](http://iolanguage.org/) and [Ioke](https://ioke.org/). Unlike Io and Ioke, it is not particularly object-oriented. Instead it is based on and compiles to readable [Clojure](http://clojure.org/) and [ClojureScript](https://github.com/clojure/clojurescript). This allows us to hook into the JVM and anything ClojureScript runs on (which is anywhere JavaScript runs), and gives us very powerful features like multimethods, protocols, and the async library. Oh, and we also get macros, without the traditional lisp syntax.
 
-The core idea behind prose is that in Clojure or any other functional language, function application is the most important aspect of the language, it should also be the most important part of the syntax. As such, whitespace denotes function application.
+The core idea behind prose is that in Clojure or any other functional language, function application is the most important aspect of the language; it should also be the most important part of the syntax. As such, whitespace denotes function application.
 
 ```
 [1, 2, 3] sum + 1 println
@@ -46,7 +46,7 @@ This is equivalent to the following Clojure code.
 
 Notice how the prose example allows the use of operators and also reads more like natural language.
 
-If you want to know more about the language, [resources/test.pr](https://github.com/aaron-lebo/prose/blob/master/resources/example.pr) has numerous examples and currently considered the canonical test of compiler. The results of compiling that file are found in [resources/example.clj](https://github.com/aaron-lebo/prose/blob/master/resources/example.clj). The parser is written using the incredible [Instaparse](https://github.com/Engelberg/instaparse) library. I cannot overstate how cool it is. It takes [this grammar definition](https://github.com/aaron-lebo/prose/blob/master/resources/grammar.bnf) and generates an AST. It is easily the best lexing/parsing tool I've ever used. The compiler attempts to keep expressions on the same line when going from input to output file. It isn't perfect, but Clojure has terrible error messages anyway, so it can't hurt too much. I'm joking. Or am I? 
+If you want to know more about the language, [resources/test.pr](https://github.com/aaron-lebo/prose/blob/master/resources/example.pr) has numerous examples and is currently considered the canonical test of compiler. The results of compiling that file are found in [resources/example.clj](https://github.com/aaron-lebo/prose/blob/master/resources/example.clj). The parser is written using the incredible [Instaparse](https://github.com/Engelberg/instaparse) library. I cannot overstate how cool it is. It takes [this grammar definition](https://github.com/aaron-lebo/prose/blob/master/resources/grammar.bnf) and generates an AST. It is easily the best lexing/parsing tool I've ever used. The compiler attempts to keep expressions on the same line when going from input to output file in order to have more understandable error messages. It isn't perfect, but Clojure has terrible error messages anyway, so it can't hurt too much. I'm kidding?
 
 ## why
 
