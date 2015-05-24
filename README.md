@@ -97,7 +97,7 @@ res println
 Now, Io and Ioke are both prototype-based languages. Within the context of mainstream lisps this doesn't make a lot of sense. Some lisps, like Common Lisp even are object-oriented or make object orientation a core aspect of the language. Fundamentally, though, they are based around functions. Functions can also be expressed in a piping manner. Clojure even has a macro which does this, the threading operator.
 
 ```
-(-> [1, 2, 3] sum (+ 1) println)
+(-> [1, 2, 3] (reduce +) inc println)
 ```
 
 This works great, but why should it be an additional operator that you have to pull out from time to time? Function application is the most important aspect of a lisp, why should it not be the most favored syntax? Let's take Io's use of whitespace as method invocation and use it for function application.
