@@ -30,6 +30,8 @@ excited-buffalo = buffalo partial(:exmark)
 excited-buffalo()
 ```
 
+[Buffalo buffalo Buffalo buffalo buffalo buffalo Buffalo buffalo](http://en.wikipedia.org/wiki/Buffalo_buffalo_Buffalo_buffalo_buffalo_buffalo_Buffalo_buffalo). English yall.
+
 prose's syntax is based on [Io](http://iolanguage.org/) and [Ioke](https://ioke.org/). Unlike Io and Ioke, it is not particularly object-oriented. Instead it is based on and compiles to readable [Clojure](http://clojure.org/) and [ClojureScript](https://github.com/clojure/clojurescript). This allows us to hook into the JVM and anything ClojureScript runs on (which is anywhere JavaScript runs), and gives us very powerful features like multimethods, protocols, and the async library. Oh, and we also get macros, without the traditional lisp syntax.
 
 The core idea behind prose is that in Clojure or any other functional language, function application is the most important aspect of the language; it should also be the most important part of the syntax. As such, whitespace denotes function application (multiple expressions are denoted by newlines).
