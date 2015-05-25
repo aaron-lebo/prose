@@ -40,27 +40,28 @@
         body-idx (last (keep-indexed* not= :n))
         arg-idxs (drop start (keep-indexed* = :symbol))
         arg-idxs (if (= body-idx (last arg-idxs)) (butlast arg-idxs) arg-idxs) 
-        larg (if (seq arg-idxs) (last arg-idxs) start)
+        l-arg (if (seq arg-idxs) (last arg-idxs) (dec start))
         subvec* #(subvec tail % %2)
-        args (subvec* (or (first arg-idxs) start) (inc larg))
+        args (subvec* (or (first arg-idxs) start) (inc l-arg))
         karg-idxs (keep-indexed* = :pair)
         karg-idxs (if (= body-idx (last karg-idxs)) (butlast karg-idxs) karg-idxs) 
-        fkarg (or (first karg-idxs) (inc larg))
-        lkarg (if (seq karg-idxs) (inc (last karg-idxs)) fkarg)
-        kargs (subvec* fkarg lkarg)
+        f-karg (or (first karg-idxs) (inc l-arg))
+        l-karg (if (seq karg-idxs) (inc (last karg-idxs)) f-karg)
+        kargs (subvec* f-karg l-karg)
+        kargs (map #(if (node? :pair %) (assoc-in % [0] :symbol-pair) %) kargs)
         keys (if (seq kargs) 
                (concat 
                 [[:symbol "&"] [:keyword ":keys"] 
-                 (cons :vector (keep #(if (node? :pair %) (second %)) kargs))
+                 (cons :vector (keep #(if (node? :symbol-pair %) (second %)) kargs))
                  [:keyword ":or"] (cons :map kargs)])
                kargs)
         params (cons :vector (concat args keys))
         [_ & r-body :as body] (nth tail body-idx)
         body (if (node? :do body) r-body [body])]  
     (join out 
-          (concat (subvec* 0 (if (= 1 larg) larg (dec larg))) 
+          (concat (subvec* 0 (if (= 1 l-arg) (inc l-arg) (dec l-arg))) 
                   [params] 
-                  (subvec tail lkarg body-idx) 
+                  (subvec tail l-karg body-idx) 
                   body 
                   (subvec tail (inc body-idx)))
           "(" ")")))

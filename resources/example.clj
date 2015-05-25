@@ -3,7 +3,7 @@
   (let [strings (repeat (* 1 8) "buffalo")  
         idxs [0 2 6]  
         f (fn [idx itm]  
-            (if (some (fn [idx2] (= idx2 idx)) idxs)  
+            (if (some (fn idx2 [idx2] (= idx2 idx)) idxs)  
               (string/capitalize itm)  
               itm))  
         
@@ -32,8 +32,12 @@
 (println) 
 
 
-(defn [:a 1 & :keys [a] :or {:a 1}]  
+(defn test [& :keys [a] :or {a 1}]  
   (+ a a)) 
+
+
+(defn test2 []  
+  (+ 1 1)) 
 
 
 (def + sum)
