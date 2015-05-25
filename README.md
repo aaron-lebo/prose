@@ -79,7 +79,7 @@ However, lisp's greatest advantage, most distinguishing feature, as well as grea
 
 Despite this, there is no doubt that lisp syntax can be jarring, especially in contrast to just about every other language. Complaints about syntax may be superficial, and they may be things that you get over after continued use, but many people never reach this point because they see the syntax and never give it a second chance. You can complain all day about how this is intellectually lazy, but its just how human beings work. People have been struggling for years to figure out how to get lisp to be adopted in the mainstream. It really is pretty simple: change human nature and the masses will start using lisp.
 
-Yes, that was a joke. The thing is, despite my own continued use of lisp, there is one aspect of the syntax that I do believe is detrimental to readability. This is nesting. Let's take a closer look. Say you want to take an array of numbers, sum them up, add one to that total, and then print them. In many mainstream languages, the code reads very similarly to that actual description. With the correct methods defined, the following code works in Python, Ruby, JavaScript, and numerous other languages.
+Yes, that was a joke. The thing is, despite my own continued use of lisp, there is one aspect of the syntax that I do believe is detrimental to readability. This is nesting. Let's take a closer look. Say you want to take an array of numbers, sum them up, add one to that total, and then print the result. In many mainstream languages, the code reads very similarly to that actual description. With the correct methods defined, the following code works in Python, Ruby, JavaScript, and numerous other languages.
 
 ```
 ([1, 2, 3].sum() + 1).print()
