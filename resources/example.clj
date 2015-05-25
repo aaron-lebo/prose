@@ -1,21 +1,21 @@
 (defn buffalo [start end]  
-  ;; buffalo  
+  #_(test)  
   (let [strings (repeat (* 1 8) "buffalo")  
-      idxs [0 2 6]  
-      f (fn [idx itm]  
-        (if (some (fn [idx2] (= idx2 idx)) idxs)  
-          (string/capitalize itm)  
-          itm))  
-         
-      ;; fn  
-      res (map-indexed f strings)]  
+        idxs [0 2 6]  
+        f (fn [idx itm]  
+            (if (some (fn [idx2] (= idx2 idx)) idxs)  
+              (string/capitalize itm)  
+              itm))  
+        
+        
+        res (map-indexed f strings)]  
     (println res)  
     (str (string/join " " res) (case end  
-        :period "."  
-        :qmark "?"  
-        "!"))  
-    ;; res println))  
-  
+                                 :period "."  
+                                 :qmark "?"  
+                                 "!"))))  
+
+
 
 
 (buffalo :period)

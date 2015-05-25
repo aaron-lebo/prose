@@ -1,5 +1,5 @@
 buffalo = defn(start, end,
-  ;; buffalo
+  ;; test
   let(strings: 1 * 8 repeat("buffalo"),
     idxs: [0, 2, 6],
     f: fn(idx, itm,
@@ -7,14 +7,14 @@ buffalo = defn(start, end,
         itm string/capitalize,
         itm
       )
-    ), ;; fn
+    ), 
     res: f map-indexed(strings), 
     res println
     " " string/join(res) str(end case(
       period: ".", 
       qmark: "?",
       "!"
-    )) ;; res println
+    ))
   )
 )
 
