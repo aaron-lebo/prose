@@ -1,4 +1,5 @@
 buffalo = defn(start, end,
+  ;; buffalo
   let(strings: 1 * 8 repeat("buffalo"),
     idxs: [0, 2, 6],
     f: fn(idx, itm,
@@ -6,13 +7,14 @@ buffalo = defn(start, end,
         itm string/capitalize,
         itm
       )
-    ),
-    res: f map-indexed(strings),
+    ), ;; fn
+    res: f map-indexed(strings), 
+    res println
     " " string/join(res) str(end case(
-      period: ".",
+      period: ".", 
       qmark: "?",
       "!"
-    ))
+    )) ;; res println
   )
 )
 
@@ -26,3 +28,12 @@ excited-buffalo()
 
 sum = reduce partial(+)
 [1, 2, 3] sum + 1 println
+
+println(
+)
+
+test = defn(a: 1,
+  a + a
+)
+
++ = sum
