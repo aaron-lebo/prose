@@ -127,7 +127,7 @@ This works great, but why should it be an additional operator that you have to p
 [1, 2, 3] sum + 1 println
 ```
 
-If you are having trouble following, the vector of numbers get passed as the first argument to sum which is then called, the result of that is passed in as the first argument to + which is called, and the final result get passed to println which is then called.
+If you are having trouble following, the vector of numbers gets passed as the first argument to sum which is then called, the result of that is passed in as the first argument to + which is called, and the final result get passed to println which is then called.
 
 This is prose, and it naturally compiles down to Clojure and ClojureScript. Why Clojure and ClojureScript? The Clojure family of languages are modern lisps which can harness the power and ecosystems of Java and JavaScript respectively. They are based around immutability and functional programming. They also have a lot of really interesting features like multimethods, protocols, and the async library. I'm of the personal opinion that feature for feature they are the most well-designed dynamic languages today. They also make a really great compilation target because the syntax is so simple and everything is an expression.
 
@@ -135,7 +135,7 @@ To sum it all up: prose is a simple language, inspired by Io and Ioke, that comp
 
 ## the future
 
-This is partially a pet project, partially an experiment in syntax, and partially a test to gauge whether other people are interested in working with me on making this truly usable. I have no formal training in compilers and as such prose is the result of years of fumbling around. The grammar definition and compiler could probably be much cleaner and simpler. If there was enough interest, it might make more sense to stop using Clojure and ClojureScript as compilation targets and instead to hook into the same code generation tools they use. They are seen as compilation targets instead of hard standards first and foremost, but interoperability is very important. Their communities are too smart, it does not make sense to diverge. Additionally, the future seems to be with gradual typing. It would be interesting to make a project like [Typed Clojure](http://typedclojure.org/) a core part of the syntax.
+This is partially a pet project, partially an experiment in syntax, and partially a test to gauge whether other people are interested in working with me on making this truly usable. I have no formal training in compilers and as such prose is the result of years of fumbling around. The grammar definition and compiler could probably be much cleaner and simpler. If there was enough interest, it might make more sense to stop using Clojure and ClojureScript as compilation targets and instead to hook into the same code generation tools they use (perhaps compiling to Clojure and ClojureScript ASTs). They are seen as compilation targets instead of hard standards first and foremost, but interoperability is very important. Their communities are too smart, it does not make sense to diverge. Additionally, the future seems to be with gradual typing. It would be interesting to make a project like [Typed Clojure](http://typedclojure.org/) a core part of the syntax.
 
 I want make this more than just an experiment. New Github issues and pull requests are very appreciated.
 
