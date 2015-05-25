@@ -1,3 +1,7 @@
+(ns prose.core  
+  (:require [clojure.string :as string]  
+            [clojure.pprint :as pprint]))
+
 (defn buffalo [start end]  
   #_(test)  
   (let [strings (repeat (* 1 8) "buffalo")  

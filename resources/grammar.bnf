@@ -26,7 +26,7 @@ space = <p> !special
 <special> = #'[.!$%&*_+=|<>?-]'+
 
 group = lp s? exp? s? rp 
-list = lp s? (comma | args comma) s? rp 
+list = lp (comma | s? (exps comma | exps (comma exps)+) s?) rp 
 vector = <'['> args <']'>
 map = <'{'> args <'}'>
 pair = exp <':'> <s> exp

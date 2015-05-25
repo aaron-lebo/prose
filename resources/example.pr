@@ -1,3 +1,7 @@
+ns(prose.core,
+  (require: [clojure.string, as: string],
+            [clojure.pprint, as: pprint]))
+
 buffalo = defn(start, end,
   ;; test
   let(strings: 1 * 8 repeat("buffalo"),

@@ -100,7 +100,7 @@
          (->call "def" [left right]))))
 
 (defn list-node [out [_ & tail]] 
-  (gen out (->call "list" tail)))
+  (join out tail "(" ")"))
 
 (defn map-node [out [_ & tail]] 
   (join out tail "{" "}"))
