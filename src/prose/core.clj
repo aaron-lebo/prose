@@ -41,7 +41,7 @@
         arg-idxs (drop start (keep-indexed* = :symbol))
         arg-idxs (if (= body-idx (last arg-idxs)) (butlast arg-idxs) arg-idxs) 
         l-arg (if (seq arg-idxs) (last arg-idxs) (dec start))
-        subvec* #(subvec tail % %2)
+        subvec* (partial subvec tail)
         args (subvec* (or (first arg-idxs) start) (inc l-arg))
         karg-idxs (keep-indexed* = :pair)
         karg-idxs (if (= body-idx (last karg-idxs)) (butlast karg-idxs) karg-idxs) 
