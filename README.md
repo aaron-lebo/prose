@@ -134,7 +134,7 @@ If you are having trouble following, the vector of numbers gets passed as the fi
 
 This is prose, and it naturally compiles down to Clojure and ClojureScript. Why Clojure and ClojureScript? The Clojure family of languages are modern lisps which can harness the power and ecosystems of Java and JavaScript respectively. They are based around immutability and functional programming. They also have a lot of really interesting features like multimethods, protocols, and the async library. I'm of the personal opinion that feature for feature they are the most well-designed dynamic languages today. They also make a really great compilation target because the syntax is so simple and everything is an expression.
 
-To sum it all up: prose is a simple language, inspired by Io and Ioke, that compiles to Clojure and ClojureScript.
+To sum it all up: prose is a simple language inspired by Io and Ioke that compiles to Clojure and ClojureScript.
 
 ## the future
 
