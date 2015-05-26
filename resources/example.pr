@@ -139,7 +139,7 @@ add(1, 2)
 ;; https://clojuredocs.org/clojure.core/defmacro#example-542692d2c026201cdc326f7a
 
 unless = defmacro(pred, a, b,
-  `if(~pred not ~a, ~b)
+  `if(~pred not, ~a, ~b)
 )
 
 ;; java and JS interop look normal 

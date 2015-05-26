@@ -139,7 +139,7 @@ so-good
 ;; https://clojuredocs.org/clojure.core/defmacro#example-542692d2c026201cdc326f7a
 
 (defmacro unless [pred a b]  
-  `(if (~[:symbol "a"] (not ~[:symbol "pred"])) ~[:symbol "b"])) 
+  `(if (not ~[:symbol "pred"]) ~[:symbol "a"] ~[:symbol "b"])) 
 
 
 ;; java and JS interop look normal 
