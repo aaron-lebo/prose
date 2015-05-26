@@ -1,6 +1,6 @@
 ;; a comment (note: two semicolons and not one unlike Clojure)
 
-;; literals (integer, float, string, regex, keyword, vector, set, list)
+;; literals (integer, float, string, regex, keyword, vector, set, list, boolean)
 
 1
 1.0
@@ -13,6 +13,9 @@
 (,) ;; empty list
 (1,) ;; list with one item
 (1) ;; the expression 1
+true
+false
+nil
 
 ;; hash-maps and pairs
 
@@ -90,9 +93,11 @@ a = 1 ;; (def a 1)
 b = [1, 2, 3] ;; (def b [1 2 3])
 c = reduce partial(+) ;; (def c (partial reduce +)
 
-;; = with function/macro/special form calls are essentially syntax sugar
+;; = with function/macro/special form calls are essentially syntax sugar, all of thse are the same
 
-fun = defn(x, x + x) ;; same as fun defn(x, x + x) or defn(fun, x, x +x) 
+fun = defn(x, x + x) 
+fun defn(x, x + x) 
+defn(fun, x, x + x)
 
 ;; if you want to test equality, use ==
 
@@ -116,12 +121,54 @@ hello-dallas = defn(name: "Dallas",
 )
 
 ;; multiple args and multiple expressions
-let(x: 1, y: 1,
+add = def(x, y,
   let(total: x + y,
       total println
       total
   )
-) ;; outer let
+) ;; end def 
 
 1 add(2)
 add(1, 2)
+
+;; just to show we can
+? = or 
+[1] second ? nil ? 1
+
+;; let's test a macro
+;; https://clojuredocs.org/clojure.core/defmacro#example-542692d2c026201cdc326f7a
+
+unless = defmacro(pred, a, b,
+  `if(~pred not ~a, ~b)
+)
+
+;; java and JS interop look normal 
+
+System/getProperties .get("os.name")
+java.util.HashMap new .put("a", 1) .put("b", 2)
+
+;; buffalo example from README
+
+buffalo = defn(end,
+  let(strings: 1 * 8 repeat("buffalo"),
+    idxs: [0, 2, 6],
+    f: fn(idx, itm,
+      if(idx2 fn(idx2 == idx) some(idxs),
+        itm string/capitalize,
+        itm
+      )
+    ),
+    res: f map-indexed(strings),
+    " " string/join(res) str(end case(
+      period: ".",
+      qmark: "?",
+      "!"
+    ))
+  )
+)
+
+:period buffalo
+buffalo(:qmark)
+
+excited-buffalo = buffalo partial(:exmark)
+excited-buffalo()

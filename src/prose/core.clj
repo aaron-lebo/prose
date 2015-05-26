@@ -121,6 +121,9 @@
 (defn group [out [_ exp]] 
   (gen out exp))
 
+(defn syntax-quote [out [_ & [f-tail & r-tail :as tail]]] 
+  (join out r-tail f-tail))
+
 (defn default [out [_ & tail]] 
   (str out (string/join tail)))
 
@@ -146,6 +149,7 @@
                   :set (shift set-node)
                   :vector (shift vector-node)
                   :group group 
+                  :syntax-quote syntax-quote
                   default)
         res (str+ out #(str % (string/join (repeat (* @indent 2) \space))) @newlines)]
     (reset! newlines [])

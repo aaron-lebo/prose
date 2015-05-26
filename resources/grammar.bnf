@@ -2,8 +2,11 @@ program = s? exps s?
 <exps> = do | exp
 do = exp (<p?> (n+ | <';'>) <p?> exp)+
 <exp> =  atom | assignment | operation | comment | !pair exp p? comment
-<atom> = symbol | boolean | pair | keyword | number | call | list | group | map | vector | set | regex | string
+<atom> = symbol | boolean | pair | keyword | number | call | list | group | map | vector | set | regex | string | syntax-quote | unquote
 comment = ';;' #'.*'
+
+syntax-quote = '`' atom
+unquote = '~' atom 
 
 boolean = 'true' | 'false' | 'nil'
 number = digits ('.' digits)?
@@ -17,13 +20,13 @@ assignment = exp <equals> exp
 equals = <p> '=' <p> 
 operation = (operation | !pair atom) !(comment | equals | '.') (operator | space) !pair atom 
 operator = <p> special <p> 
-space = <p> !special
+space = <p>
 
 <id> = '/' | qualified ('/' qualified)?
 <qualified> = non-numeric (':'? (non-numeric | digits))*
 <digits> = #'[0-9]+'
 <non-numeric> = #'[a-zA-Z]+' | special
-<special> = #'[.!$%&*_+=|<>?-]'+
+<special> = ('.' | #'[!$%&*_+=|<>?-]')+
 
 group = lp s? exp? s? rp 
 list = lp (comma | s? (exps comma | exps (comma exps)+) s?) rp 

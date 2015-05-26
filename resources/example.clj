@@ -1,6 +1,6 @@
 ;; a comment (note: two semicolons and not one unlike Clojure)
 
-;; literals (integer, float, string, regex, keyword, vector, set, list)
+;; literals (integer, float, string, regex, keyword, vector, set, list, boolean)
 
 1
 1.0
@@ -13,6 +13,9 @@
 ();; empty list
 (1);; list with one item
 1;; the expression 1
+true
+false
+nil
 
 ;; hash-maps and pairs
 
@@ -90,8 +93,10 @@ so-good
 (def b [1 2 3])
 (def c (partial reduce +))
 
-;; = with function/macro/special form calls are essentially syntax sugar
+;; = with function/macro/special form calls are essentially syntax sugar, all of thse are the same
 
+(defn fun [x] (+ x x))
+(defn fun [x] (+ x x))
 (defn fun [x] (+ x x))
 
 ;; if you want to test equality, use ==
@@ -116,12 +121,54 @@ so-good
 
 
 ;; multiple args and multiple expressions
-(let [x 1 y 1]  
+(def add x y  
   (let [total (+ x y)]  
     (println total)  
     total))  
   
-;; outer let
+
 
 (add 1 2)
 (add 1 2)
+
+;; just to show we can
+(def ? or)
+(? (? (second [1]) nil) 1)
+
+;; let's test a macro
+;; https://clojuredocs.org/clojure.core/defmacro#example-542692d2c026201cdc326f7a
+
+(defmacro unless [pred a b]  
+  `(if (~[:symbol "a"] (not ~[:symbol "pred"])) ~[:symbol "b"])) 
+
+
+;; java and JS interop look normal 
+
+(.get System/getProperties "os.name")
+(.put (.put (new java.util.HashMap) "a" 1) "b" 2)
+
+;; buffalo example from README
+
+(defn buffalo [end]  
+  (let [strings (repeat (* 1 8) "buffalo")  
+      idxs [0 2 6]  
+      f (fn [idx itm]  
+        (if (some (fn [idx2] (= idx2 idx)) idxs)  
+          (string/capitalize itm)  
+          itm))  
+         
+       
+      res (map-indexed f strings)]  
+    (str (string/join " " res) (case end  
+        :period "."  
+        :qmark "?"  
+        "!"))))  
+     
+  
+
+
+(buffalo :period)
+(buffalo :qmark)
+
+(def excited-buffalo (partial buffalo :exmark))
+(excited-buffalo)
