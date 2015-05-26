@@ -144,7 +144,4 @@ I want make this more than just an experiment. New Github issues and pull reques
 
 ## license
 
-Copyright © 2015 Aaron Lebo
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+MIT	
