@@ -19,8 +19,9 @@
 
 (defn join [out args & [left right]]
   (let [res (string/join " " (map (partial gen "") args))
-        whitespace (re-find #"\s+$" res)]
-    (str out left (string/trimr res) right whitespace)))
+        regex #"\s+;;.*$"
+        match (re-find regex res)]
+    (str out left (string/replace res regex "") right match)))
 
 (defn keep-indexed* [tail ? key] 
   (keep-indexed (fn [idx [f-itm & _]] (if (? key f-itm) idx)) tail))
@@ -121,9 +122,6 @@
 (defn group [out [_ exp]] 
   (gen out exp))
 
-(defn comment-node [out [_ & tail]] 
-  (str out " " (string/join tail)))
-
 (defn default [out [_ & tail]] 
   (str out (string/join tail)))
 
@@ -142,7 +140,6 @@
                   :set set-node
                   :vector vector-node
                   :group group 
-		  :comment comment-node
                   default)
         res (str+ out identity @newlines)]
     (reset! newlines [])

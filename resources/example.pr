@@ -14,6 +14,12 @@
 (1,) ;; list with single item
 (1) ;; the expression 1
 
+println(
+  list(
+    1, 2, 3
+  ) ;; list 
+)
+
 ;; The list syntax is inspired by Python's tuple syntax.
 
 ;; Symbols - like Clojure, prose allows for a wide variety of identifiers not available in other languages.
