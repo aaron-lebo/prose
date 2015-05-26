@@ -1,6 +1,7 @@
 (ns prose.core
   (:require [clojure.string :as string] 
             [clojure.pprint :as pprint]
+            [cljfmt.core :as cljfmt]
             [instaparse.core :as insta]))
 
 (declare gen)
@@ -121,36 +122,29 @@
   (gen out exp))
 
 (defn comment-node [out [_ & tail]] 
-  (join out tail "#_(" ")"))
+  (str out " " (string/join tail)))
 
 (defn default [out [_ & tail]] 
   (str out (string/join tail)))
-
-(defn shift [node-fn]
-  (fn [& args]
-    (swap! indent inc)
-    (let [res (apply node-fn args)]
-      (swap! indent dec)
-      res)))
 
 (defn gen [out [head & tail :as node]]
   (let [node-fn (case head 
                   :program program
                   :do do-node
                   :n n 
-                  :call (shift call)
+                  :call call
                   :operation operation
                   :assignment assignment 
-                  :list (shift list-node)
-                  :map (shift map-node)
+                  :list list-node
+                  :map map-node
                   :pair pair!
                   :symbol-pair pair
-                  :set (shift set-node)
-                  :vector (shift vector-node)
+                  :set set-node
+                  :vector vector-node
                   :group group 
-                  :comment comment-node
+		  :comment comment-node
                   default)
-        res (str+ out #(str % (string/join (repeat (* @indent 2) \space))) @newlines)]
+        res (str+ out identity @newlines)]
     (reset! newlines [])
     (node-fn res node)))
 
@@ -165,5 +159,5 @@
 (defn compile-file [path path-out]
   (let [res (parse path)]
     (if (vector? res)
-      (spit (clojure.java.io/file path-out) (gen "" res))
+      (spit (clojure.java.io/file path-out) (cljfmt/reformat-string (gen "" res)))
       (println res))))

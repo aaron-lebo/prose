@@ -3,7 +3,7 @@ program = s? exps s?
 do = exp (<p?> (n+ | <';'>) <p?> exp)+
 <exp> =  atom | assignment | operation | comment | !pair exp p? comment
 <atom> = symbol | boolean | pair | keyword | number | call | list | group | map | vector | set | regex | string
-comment = <';;'> #'.*'
+comment = ';;' #'.*'
 
 boolean = 'true' | 'false' | 'nil'
 number = digits ('.' digits)?
@@ -14,7 +14,7 @@ regex = '#' quoted
 <quoted> = '"' #'[^\\"]|\\.'* '"'
 
 assignment = exp <equals> exp 
-equals = <s> '=' <s> 
+equals = <p> '=' <p> 
 operation = (operation | !pair atom) !(comment | equals | '.') (operator | space) !pair atom 
 operator = <p> special <p> 
 space = <p> !special

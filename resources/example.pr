@@ -42,7 +42,7 @@ println(1, 2, 3)
 if(true, :yes, :no)
 my-function("test", test: "this") ;; keyword args, when applicable
 
-;; Function/macro/special form application - the magic of prose; defined as "exp non-newline-whitespace exp". The earlier calls can be expressed using this syntax.
+;; Function/macro/special form application - the magic of prose. defined as exp non-newline-whitespace exp. The earlier calls can be expressed using this syntax.
 
 1 println
 1 println(2, 3)
