@@ -52,7 +52,7 @@ Notice how the prose example allows the use of operators and also reads more lik
 
 If you want to know more about the language, [resources/test.pr](https://github.com/aaron-lebo/prose/blob/master/resources/example.pr) has numerous examples and is currently considered the canonical test of compiler. The results of compiling that file are found in [resources/example.clj](https://github.com/aaron-lebo/prose/blob/master/resources/example.clj). The parser is written using the incredible [Instaparse](https://github.com/Engelberg/instaparse) library. I cannot overstate how cool it is. It takes [this grammar definition](https://github.com/aaron-lebo/prose/blob/master/resources/grammar.bnf) and generates an AST. It is easily the best lexing/parsing tool I've ever used. The compiler attempts to keep expressions on the same line when going from input to output file in order to have more understandable error messages. It isn't perfect, but Clojure has terrible error messages anyway, so it can't hurt too much. I'm kidding?
 
-NOTE: There are subtle bugs with comments; for now I'm leaving them instead of ignoring comments enitrely.
+NOTE: There are subtle bugs with comments; for now I'm leaving them instead of ignoring comments entirely.
 
 ## installation
 
@@ -62,7 +62,7 @@ NOTE: There are subtle bugs with comments; for now I'm leaving them instead of i
 4. ```lein deps```
 5. Inside the project directory you can now use ```lein prose``` (once I properly register it as a lein plugin it will be usable anywhere).
 
-## use
+## usage
 
 Calling the command with a single argument will output the Instaparse AST (the AST currently keeps extraeneous whitespace information that is only necessary for the compiler).
 
