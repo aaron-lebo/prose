@@ -1,63 +1,52 @@
-;; This is a comment (note: two semicolons and not one unlike Clojure).
+;; a comment (note: two semicolons and not one unlike Clojure)
 
-;; prose has literals much like Clojure.
+;; literals (integer, float, string, regex, keyword, vector, set, list)
 
-1 ;; integer
-1.0 ;; float
-"sup" ;; string
-#".*" ;; regex
-:yeah ;; keyword
-[1, 2, 3] ;; vector
-#{:a, :b, :c} ;; set
-(1, 2, 3) ;; list
+1
+1.0
+"string" 
+#"rege" 
+:keyword
+[1, 2, 3]
+#{:a, :b, :c}
+(1, 2, 3)
 (,) ;; empty list
-(1,) ;; list with single item
+(1,) ;; list with one item
 (1) ;; the expression 1
 
-println(
-  list(
-    1, 2, 3
-  ) ;; list 
-)
+;; hash-maps and pairs
 
-;; The list syntax is inspired by Python's tuple syntax.
+{a: 1, b: 2, c: 3} ;; hash-map
+a: 1 ;; a pair, becomes :a 1, symbols on the left side get turned into keywords by default
+0: 1 ;; becomes 0 1
+"hello": "world" ;; becomes "hello" "world"
 
-;; Symbols - like Clojure, prose allows for a wide variety of identifiers not available in other languages.
+;; this behavior is mostly to allow for nice-looking hash maps, default args, etc
+
+;; symbols - like Clojure,a wide variety of identifiers not available in other languages
 
 awesome?
 awesome!
 so-good
 <alright>
 
-;; Pairs are a syntax shortcut, currently they are spliced into whatever form they are placed, with symbols on the left side getting converted to keywords.
-
-a: 1 ;; becomes :a 1 
-"yes": "no" ;; "yes" "no"
-0: :a ;; 0 :a
-
-;; This allows for nice looking hash-maps, default arguments, and other niceties.
-
-{a: 1, "yes", "no", 0: :a}
-
-;; Pairs may end up getting compiled down to a concerete form. 
-
-;; Function/macro/special form calls - about what you'd except.
+;; calls
 
 println(1)
 println(1, 2, 3)
 if(true, :yes, :no)
 my-function("test", test: "this") ;; keyword args, when applicable
 
-;; Function/macro/special form application - the magic of prose. defined as exp non-newline-whitespace exp. The earlier calls can be expressed using this syntax.
+;; application - functions can be applied in a way that looks like method invocation or UNIX pipes 
 
 1 println
 1 println(2, 3)
 true if(:yes, :no)
 "test" my-function(test: "this")
-
 1 inc dec println ;; can also be chained
 
-;; Newlines - if you haven't noticed, newlines denote multiple expressions, much like Ruby. You can also use semicolons. Multiople expressions get wrapped in a Clojure do form except where that is uncessary (let, defn, etc bodies).
+;; newlines - denote multiple expressions, much like Ruby (you can also use semicolons)
+;; multiple expressions get wrapped in a Clojure do form except where that is uncessary (let, defn, etc bodies).
 
 true if(:yes,
   :no println
@@ -65,31 +54,74 @@ true if(:yes,
 )
 true if(:yes, :no println; :no)
 
-
-;; Operators - these are symbols which contain only non-alphanumeric characters.
+;; operators - symbols which contain only non-alphanumeric characters (currently, any combination of .!$%&*_+=|<>?-)
 
 +
 -
 *
 /
-
 ?
 !!!
-<>
+<|>
 
-;; These are only some of the possibilties. Clojure uses some chars such as @ for special syntax, it is possible these may be kept available in prose for use in operators.
+;; operations - space is imporant 
 
-;; Operations - operations are defined as "exp space operator space exp". This allows operators to still be used like regular symbols in many contexts.
+;; 1+1 is a syntax error, not an operation
+1 + 1 ;; this is an operation
+
+;; space between args and operators allows operators to act like symbols in many contexts
 
 sum = reduce partial(+) 
++(1, 2)
 
-;; When they are used in operations, with a single exception (as we'll see), there's no precedence.
+;; with a single exception (as we'll see), there's no precedence
 
 1 + 1 * 2 ;; = 4
 
-;; Lack of precedence is a feature, not a bug. It keeps both the implementation and use simple. Use parens to dictate flow.
+;; lack of precedence keeps both the implementation and usage simple 
+;; use parens to dictate flow
 
 1 + (1 * 2) ;; = 3 
 
+;; assignment - lower precedence than all other operations 
+;; translates to (def left right) for all right-hand expressions except for calls 
 
-;; Assignment - prose needs some kind of assignment operator to stay sexy. Assignment is dictated by "=" and has lower precedence than all other operations. If you are looking to test equality, that is "==".
+a = 1 ;; (def a 1)
+b = [1, 2, 3] ;; (def b [1 2 3])
+c = reduce partial(+) ;; (def c (partial reduce +)
+
+;; = with function/macro/special form calls are essentially syntax sugar
+
+fun = defn(x, x + x) ;; same as fun defn(x, x + x) or defn(fun, x, x +x) 
+
+;; if you want to test equality, use ==
+
+0 == 0 ;; becomes (= 0 0)
+
+;; now we know enough to write more complete programs
+
+;; single arg
+hello = defn(name,
+  "Hello, " str(name)
+)
+
+;; no args
+hello-hello = defn(
+  "Hello" hello
+)
+
+;; default/keyword arg
+hello-dallas = defn(name: "Dallas",
+   name hello
+)
+
+;; multiple args and multiple expressions
+let(x: 1, y: 1,
+  let(total: x + y,
+      total println
+      total
+  )
+) ;; outer let
+
+1 add(2)
+add(1, 2)

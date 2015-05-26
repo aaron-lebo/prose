@@ -1,7 +1,6 @@
 (ns prose.core
   (:require [clojure.string :as string] 
             [clojure.pprint :as pprint]
-            [cljfmt.core :as cljfmt]
             [instaparse.core :as insta]))
 
 (declare gen)
@@ -19,9 +18,9 @@
 
 (defn join [out args & [left right]]
   (let [res (string/join " " (map (partial gen "") args))
-        regex #"\s+;;.*$"
+        regex #"\s+(;;.*)?$"
         match (re-find regex res)]
-    (str out left (string/replace res regex "") right match)))
+    (str out left (string/replace res regex "") right (apply str match))))
 
 (defn keep-indexed* [tail ? key] 
   (keep-indexed (fn [idx [f-itm & _]] (if (? key f-itm) idx)) tail))
@@ -125,23 +124,30 @@
 (defn default [out [_ & tail]] 
   (str out (string/join tail)))
 
+(defn shift [node-fn]
+  (fn [& args]
+    (swap! indent inc)
+    (let [res (apply node-fn args)]
+      (swap! indent dec)
+      res)))
+
 (defn gen [out [head & tail :as node]]
   (let [node-fn (case head 
                   :program program
                   :do do-node
                   :n n 
-                  :call call
+                  :call (shift call)
                   :operation operation
                   :assignment assignment 
-                  :list list-node
-                  :map map-node
+                  :list (shift list-node)
+                  :map (shift map-node)
                   :pair pair!
                   :symbol-pair pair
-                  :set set-node
-                  :vector vector-node
+                  :set (shift set-node)
+                  :vector (shift vector-node)
                   :group group 
                   default)
-        res (str+ out identity @newlines)]
+        res (str+ out #(str % (string/join (repeat (* @indent 2) \space))) @newlines)]
     (reset! newlines [])
     (node-fn res node)))
 
@@ -156,5 +162,5 @@
 (defn compile-file [path path-out]
   (let [res (parse path)]
     (if (vector? res)
-      (spit (clojure.java.io/file path-out) (cljfmt/reformat-string (gen "" res)))
+      (spit (clojure.java.io/file path-out) (gen "" res))
       (println res))))

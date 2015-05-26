@@ -39,5 +39,5 @@ call = !pair atom lp args rp
 
 <s> = (<p?> n <p?> | <p>)+
 <p> = #'\p{Blank}+'
-n = <'\n'>
+n = <'\n'|'\r\n'>
 
