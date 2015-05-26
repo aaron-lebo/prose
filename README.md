@@ -57,7 +57,8 @@ If you want to know more about the language, [resources/test.pr](https://github.
 1. [Install Leiningen](https://github.com/technomancy/leiningen#installation).
 2. ```git clone https://github.com/aaron-lebo/prose.git```
 3. ```cd prose```
-4. Inside the project directory you can now use ```lein prose``` (once I properly register it as a lein plugin it will be usable anywhere).
+4. ```lein deps```
+5. Inside the project directory you can now use ```lein prose``` (once I properly register it as a lein plugin it will be usable anywhere).
 
 ## use
 
