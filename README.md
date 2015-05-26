@@ -70,6 +70,8 @@ Calling the command with a second argument will generate a Clojure file at that 
  
 ```lein prose resources/example.pr resources/example.clj```
 
+NOTE: There are subtle bugs with comments; for now I'm leaving them instead of ignoring comments enitrely.
+
 ## why
 
 Lisp dialects are often talked about as though they were religious experiences that everyone should experience at one point in their lifetime. You can even find John McCarthy's creation of the original LISP in 1956 spoken of in terms of discovery, as though lisp was an immutable law or truth like gravity, just waiting for human beings to become enlightened enough to realize it was there.
